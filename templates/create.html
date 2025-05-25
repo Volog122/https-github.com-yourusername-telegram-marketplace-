@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Создать объявление</title>
+    <script src="https://cdn.tailwindcss.com "></script>
+</head>
+
+<body class="bg-gray-100 p-4">
+
+    <h1 class="text-xl font-bold mb-4">➕ Создать новое объявление</h1>
+
+    <form id="ad-form" class="bg-white p-4 rounded shadow space-y-4">
+        <input type="text" id="title" placeholder="Название" required class="w-full p-2 border rounded">
+        <textarea id="description" placeholder="Описание" required class="w-full p-2 border rounded"></textarea>
+        <input type="number" id="price" placeholder="Цена в ⭐" required class="w-full p-2 border rounded">
+
+        <select id="category" class="w-full p-2 border rounded">
+            <option value="">Выберите категорию</option>
+            <option value="bot">🤖 Боты</option>
+            <option value="chat">💬 Чаты</option>
+            <option value="nft">🖼 NFT</option>
+            <option value="ton">🧭 .TON домены</option>
+            <option value="ads">📢 Реклама</option>
+        </select>
+
+        <input type="text" id="image" placeholder="Ссылка на изображение (необязательно)"
+            class="w-full p-2 border rounded">
+        <input type="number" id="subscribers" placeholder="Подписчики / участники" class="w-full p-2 border rounded">
+
+        <button type="submit" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">✅ Опубликовать</button>
+    </form>
+
+    <script>
+        document.getElementById("ad-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const newItem = {
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                price: parseFloat(document.getElementById("price").value),
+                category: document.getElementById("category").value,
+                image: document.getElementById("image").value,
+                subscribers: document.getElementById("subscribers").value
+            };
+
+            await fetch("/api/items", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newItem)
+            });
+
+            alert("Объявление создано!");
+            window.location.href = "/";
+        });
+    </script>
+</body>
+
+</html>
