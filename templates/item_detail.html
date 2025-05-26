@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ item.title }}</title>
+    <script src="https://cdn.tailwindcss.com "></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 12px;
+            left: 16px;
+            width: 44px;
+            height: 44px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            font-size: 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .back-button:hover {
+            background-color: #dcdcdc;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card img {
+            object-fit: cover;
+            width: 100%;
+            height: auto;
+        }
+
+        .rating {
+            color: gold;
+            font-size: 14px;
+        }
+
+        .btn-contact {
+            background-color: #2563eb;
+            color: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-favorite {
+            background-color: #e9ecef;
+            color: #333;
+            border-radius: 10px;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-report {
+            background-color: #fee2e2;
+            color: #be123c;
+            border-radius: 10px;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 640px) {
+
+            .btn-contact,
+            .btn-favorite,
+            .btn-report {
+                font-size: 16px;
+                padding: 14px;
+            }
+
+            .card img {
+                height: 120px;
+            }
+
+            .rating {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white p-4 pt-16"> <!-- Отступ сверху для кнопки "Назад" -->
+
+    <button class="back-button" onclick="window.history.back()">←</button>
+
+    <div class="card">
+        <img src="{{ item.image }}" alt="{{ item.title }}" class="rounded-md w-full h-40 object-cover mb-3" />
+        <h2 class="text-xl font-semibold">{{ item.title }}</h2>
+        <p class="mb-2"><strong>Категория:</strong> {{ item.category }}</p>
+        <p class="mb-2"><strong>Цена:</strong> {{ item.price }} ⭐</p>
+        <p class="mb-2"><strong>Описание:</strong> {{ item.description }}</p>
+        <p class="mb-2"><strong>Telegram:</strong> <a href="https://t.me/ {{ item.contact }}" target="_blank">@{{
+                item.contact }}</a></p>
+
+        <div class="flex flex-wrap gap-2">
+            <a href="#" class="btn-contact">💬 Связаться</a>
+            <a href="#" class="btn-favorite">❤️ Сохранить</a>
+            <a href="#" class="btn-report">🚩 Пожаловаться</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
