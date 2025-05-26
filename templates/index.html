@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telegram Market</title>
+  <script src="https://cdn.tailwindcss.com "></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .category-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      padding: 10px;
+      background: white;
+      margin-bottom: 10px;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .item-card {
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      background: white;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 p-4">
+
+  <!-- Верхняя часть -->
+  <div class="flex justify-center items-center bg-green-500 text-white p-4 rounded-t-lg">
+    <p>You allowed this bot to message you when you opened Telegram Apps Center.</p>
+  </div>
+
+  <!-- Главное изображение -->
+  <img src="https://via.placeholder.com/800x400?text=Your+Marketplace " alt="Marketplace Banner"
+    class="w-full h-auto object-cover rounded-lg my-4">
+
+  <!-- Навигация -->
+  <a href="/create" class="btn-primary">➕ Создать объявление</a>
+  <a href="/my_ads" class="btn-primary mt-2">📋 Мои объявления</a>
+
+  <!-- Категории -->
+  <h2 class="text-xl font-bold mb-4 mt-6">🔥 Лучшие продавцы</h2>
+
+  <div id="items" class="space-y-4"></div>
+
+  <script>
+    // Загрузка товаров
+    async function loadItems() {
+      const res = await fetch("/api/items");
+      const data = await res.json();
+      const container = document.getElementById("items");
+      container.innerHTML = "";
+
+      data.items.forEach(i => {
+        container.innerHTML += `
+      <div class="item-card" onclick="openItem(${i.id})">
+        <b>${i.title}</b><br>
+        <small>${i.description}</small><br>
+        <span class="text-green-600">${i.price} ⭐</span>
+      </div>
+    `;
+      });
+    }
+
+    function openItem(id) {
+      window.location.href = "/item/" + id;
+    }
+
+    loadItems();
+  </script>
+
+</body>
+
+</html>
